@@ -18,9 +18,18 @@
 body {
     background-color: var(--bg);
 }
+.logo img {
+    height: 6rem;
+    width: auto;
+    display: block;
+}
 
 section {
-    padding: 3rem;
+    padding: 3rem;.logo img {
+    height: 6rem;
+    width: auto;
+    display: block;
+}
     margin: 0 auto;
     max-width: 1200px;
 }
