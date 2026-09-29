@@ -4,18 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ESSA LINHA É A IMPORTANTE PARA O GOOGLE:
+         ela é a descrição que aparece embaixo do link do site quando
+         alguém pesquisa no Google. Sem ela, o Google mostra nada. -->
+    <meta name="description" content="DEVCLUB COFFEE - cafeteria especialidade. Código, café e boas ideias desde 2020.">
+
     <link rel="stylesheet" href="styles.css">
-    <title>DEVCLUB COFFEE</title>
+
+    <!-- favicon.svg e o iconezinho que aparece na aba do navegador -->
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+    <title>DEVCLUB COFFEE | Cafeteria</title>
 </head>
 
 <body>
+
+    <!-- ================= CABEÇALHO (a parte fixa do topo) ================= -->
     <header class="header">
         <section>
-            <a href="#" class="logo">
-                <img src="./assets/5c56c0f1-2db5-48a0-a021-9f9554efcc38.jpeg" alt="">
+
+            <!-- O alt é o texto que aparece quando a imagem não carrega.
+                 Também é lido em voz alta por quem usa leitor de tela. -->
+            <a href="#home" class="logo">
+                <img src="./assets/5c56c0f1-2db5-48a0-a021-9f9554efcc38.jpeg" alt="DEVCLUB COFFEE - ir para o início">
             </a>
 
-            <nav class="navbar">
+            <!-- Menu de navegação -->
+            <nav class="navbar" aria-label="Menu principal">
                 <a href="#home">Home</a>
                 <a href="#about">Sobre</a>
                 <a href="#menu">Menu</a>
@@ -23,31 +39,175 @@
                 <a href="#address">Endereço</a>
             </nav>
 
+            <!-- Botões de lupa e carrinho (por enquanto são só imagens) -->
             <div class="icons">
-                <img width="40" height="50" src="https://img.icons8.com/ios/50/ffffff/search--v1.png" alt="search">
-                <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/ffffff/shopping-cart--v1.png" alt="carrinho">
+                <img width="40" height="50" src="https://img.icons8.com/ios/50/ffffff/search--v1.png" alt="Buscar">
+                <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/ffffff/shopping-cart--v1.png" alt="Carrinho de compras">
             </div>
         </section>
     </header>
 
+    <!-- ================= 1. HOME / CAPA ================= -->
     <div class="home-container">
         <section id="home">
             <div class="content">
-                <h3>Codando com o melhor café da região</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reiciendis, perferendis! Amet, fugiat soluta unde ipsam minima ipsa libero doloremque. Fuga in voluptatem earum, repellat consequuntur veniam vero dolore officia adipisci!</p>
-                <a href="#" class="btn">Pegue o seu agora</a>
+                <h1>Codando com o melhor café da região</h1>
+                <p>Um café especial, um notebook aberto e a ideia do dia. O DEVCLUB COFFEE nasceu para quem programa e precisa de cafeína de verdade: grãos torrados na casa, extração no ponto certo e um lugar tranquilo para focar.</p>
+                <a href="#menu" class="btn">Pegue o seu agora</a>
             </div>
         </section>
     </div>
 
+    <!-- ================= 2. SOBRE NÓS ================= -->
     <section class="about" id="about">
         <h2 class="title">Sobre <span>Nós</span></h2>
 
-        <div class="row">
-            <img src="./img/about.jpg" alt="sobre nós">
+        <div class="about-grid">
+
+            <!-- Coluna da esquerda: o texto -->
+            <div class="about-texto">
+                <p class="destaque">Café de origem, preparado com calma.</p>
+                <p>Somos pequenos de propósito. Cada saca é escolhida no fornecedor, cada grão é torrado em pequenos lotes e cada xícara é feita na hora, na frente de você. Nada de café requentado.</p>
+
+                <!-- Lista de diferenciais -->
+                <ul class="lista">
+                    <li>
+                        <strong>Torrado na semana</strong>
+                        <span>Grãos frescos, enviados toda semana.</span>
+                    </li>
+                    <li>
+                        <strong>Origem confirmada</strong>
+                        <span>Sabemos de qual fazenda veio cada café.</span>
+                    </li>
+                    <li>
+                        <strong>Wi-fi e tomada</strong>
+                        <span>Trabalhe o tempo que precisar, sem pressa.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Coluna da direita: a imagem -->
+            <!--
+                A imagem original é 1536x1024 (paisagem, "deitada").
+                Aqui ela aparece num quadro em pé (4/5), então o
+                object-fit: cover corta o lado que sobra.
+                O object-position diz qual parte dessa "fatia" aparece.
+            -->
+            <figure class="about-foto">
+                <img src="./assets/e10af51a-928d-441a-aba8-dd41a0c0e1a6.jpeg" alt="Café servido na mesa do DEVCLUB COFFEE">
+            </figure>
         </div>
     </section>
+
+    <!-- ================= 3. CARDÁPIO ================= -->
+    <section class="cardapio" id="menu">
+        <h2 class="title">Nosso <span>Menu</span></h2>
+
+        <div class="grade">
+
+            <article class="item">
+                <p class="item-valor">R$ 8,00</p>
+                <h3>Espresso</h3>
+                <p class="item-desc">Dose curta e encorpada. O clássico para começar o dia.</p>
+            </article>
+
+            <article class="item">
+                <p class="item-valor">R$ 12,00</p>
+                <h3>Cappuccino</h3>
+                <p class="item-desc">Espresso, leite vaporizado e espuma cremosa por cima.</p>
+            </article>
+
+            <article class="item">
+                <p class="item-valor">R$ 14,00</p>
+                <h3>Latte</h3>
+                <p class="item-desc">Mais leite, menos café. Suave do começo ao fim.</p>
+            </article>
+
+            <article class="item">
+                <p class="item-valor">R$ 16,00</p>
+                <h3>Cold Brew</h3>
+                <p class="item-desc">Extração a frio por 18 horas. Servido gelado e sem amargo.</p>
+            </article>
+
+            <article class="item">
+                <p class="item-valor">R$ 9,00</p>
+                <h3>Pão na Chapa</h3>
+                <p class="item-desc">Receita de casa, feito toda manhã. Vai bem com qualquer café.</p>
+            </article>
+
+            <article class="item">
+                <p class="item-valor">R$ 15,00</p>
+                <h3>Croissant de Manteiga</h3>
+                <p class="item-desc">Massa folhada, manteiga de verdade e crocante.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- ================= 4. AVALIAÇÕES ================= -->
+    <section class="review" id="review">
+        <h2 class="title">O que dizem <span>daqui</span></h2>
+
+        <div class="grade">
+
+            <article class="item">
+                <!-- As estrelas são caracteres, não imagens: são leves e sempre aparecem -->
+                <p class="estrelas" aria-label="Nota 5 de 5">★★★★★</p>
+                <p class="item-desc">"O melhor espresso da região, e o lugar é silencioso na medida certa pra programar."</p>
+                <p class="item-autor">Marina S. <span>Developer</span></p>
+            </article>
+
+            <article class="item">
+                <p class="estrelas" aria-label="Nota 5 de 5">★★★★★</p>
+                <p class="item-desc">"Trabalho de casa inteira rodando no wi-fi deles. O cold brew me salvou na madrugada."</p>
+                <p class="item-autor">Rafael T. <span>Dev back-end</span></p>
+            </article>
+
+            <article class="item">
+                <p class="estrelas" aria-label="Nota 4 de 5">★★★★☆</p>
+                <p class="item-desc">"Café excelente e o pão na chapa é realmente bom. Só achei a música alta no sábado."</p>
+                <p class="item-autor">Júlia M. <span>Estudante</span></p>
+            </article>
+        </div>
+    </section>
+
+    <!-- ================= 5. ENDEREÇO E HORÁRIOS ================= -->
+    <section class="address" id="address">
+        <h2 class="title">Onde <span>nos encontrar</span></h2>
+
+        <div class="address-grid">
+
+            <div class="item">
+                <h3>Endereço</h3>
+                <p class="item-desc">
+                    Rua das Palmeiras, 245<br>
+                    Centro - São Paulo/SP
+                </p>
+            </div>
+
+            <div class="item">
+                <h3>Contato</h3>
+                <p class="item-desc">
+                    (11) 4002-8922<br>
+                    <a href="mailto:oi@devclubcoffee.com">oi@devclubcoffee.com</a>
+                </p>
+            </div>
+
+            <div class="item">
+                <h3>Horários</h3>
+                <p class="item-desc">
+                    Seg a Sex: 7h às 20h<br>
+                    Sábado: 8h às 18h<br>
+                    Domingo: fechado
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= RODAPÉ ================= -->
+    <footer class="footer">
+        <p>DEVCLUB COFFEE &copy; 2026 &mdash; coded with love and caffeine</p>
+    </footer>
+
 </body>
 
 </html>
-

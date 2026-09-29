@@ -1,36 +1,90 @@
+/* =====================================================================
+   DEVCLUB COFFEE - folha de estilo
+   Organizada por seções, na mesma ordem em que as seções aparecem
+   no index.html. Isso ajuda a encontrar tudo depois.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   1. VARIÁVEIS
+   Variáveis são "apelidos" para cores. Se você quiser trocar a cor
+   dourada da página toda, muda em UM lugar só (no :root) e pronto.
+   --------------------------------------------------------------------- */
 :root {
-    --main-color: #d3ad7f;
-    --black: #010103;
-    --bg: #13131a;
+    --main-color: #d3ad7f;   /* dourado: botões, títulos e destaques */
+    --bg: #13131a;           /* fundo escuro da página */
+    --card: #1d1d26;         /* fundo dos cartões (um pouco mais claro) */
+    --white: #ffffff;
+    --text: #e8e6e3;         /* cor do texto normal */
+    --text-soft: #a8a6b0;    /* cor do texto mais apagado (descrições) */
+
     --border: 0.1rem solid rgba(255, 255, 255, 0.3);
-    font-size: 10px;
+
+    /* O curso usa 10px como "1rem" para poder escrever em rem
+       e pensar em pixels. 62.5% dá exatamente 10px (62.5% de 16px). */
+    font-size: 62.5%;
 }
 
+/* ---------------------------------------------------------------------
+   2. RESET
+   Tira a margem e o espaçamento padrão do navegador, para todos
+   os elementos começarem com o mesmo visual.
+   --------------------------------------------------------------------- */
 * {
     margin: 0;
     padding: 0;
-    outline: none;
+    box-sizing: border-box;   /* faz o padding contar DENTRO da largura */
     border: none;
     text-decoration: none;
-    transition: 0.2s linear;
+    list-style: none;
+
+    /* IMPORTANTE:
+       O CSS antigo usava "transition: 0.2s linear" aqui, com o asterisco.
+       O asterisco significa "todos os elementos", então a animação
+       ficava em TUDO da pagina, ate em coisas que nao precisam.
+       Agora a animacao e aplicada so onde ela faz sentido. */
+}
+
+/* ---------------------------------------------------------------------
+   3. BASE
+   --------------------------------------------------------------------- */
+html {
+    /* Faz o clique no menu deslizar a pagina em vez de "pular" */
+    scroll-behavior: smooth;
+    /* Avisa ao navegador que a pagina e escura, para a barra de
+       rolagem ficar na cor certa */
+    color-scheme: dark;
 }
 
 body {
     background-color: var(--bg);
+    color: var(--text);
+
+    /* Sem escolher nenhuma fonte online, o site continua funcionando
+       offline e abre instantaneo. Sao as fontes que ja existem
+       no computador do usuario. */
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
 }
 
-.logo img {
-    height: 6rem;
-    width: auto;
-    display: block;
-}
-
+/* O cabecalho e fixo (sempre no topo). Isso cobre um pedaco da pagina
+   quando voce clica num link do menu. O scroll-margin-top deixa
+   a secao aparecer logo abaixo do cabecalho, em vez de escondida. */
 section {
-    padding: 3rem;
-    margin: 0 auto;
-    max-width: 1200px;
+    scroll-margin-top: 9rem;
 }
 
+/* Foco do teclado: o CSS antigo usava "outline: none", que deixava
+   quem navega pelo teclado sem nenhuma indicacao de onde esta.
+   Aqui a gente mostra um contorno dourado so quando faz sentido. */
+:focus-visible {
+    outline: 0.2rem solid var(--main-color);
+    outline-offset: 0.3rem;
+    border-radius: 0.3rem;
+}
+
+/* ---------------------------------------------------------------------
+   4. CABECALHO
+   --------------------------------------------------------------------- */
 .header {
     position: fixed;
     top: 0;
@@ -45,69 +99,392 @@ section {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 2rem;
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
+}
+
+.logo img {
+    height: 6rem;
+    width: auto;
+    display: block;
 }
 
 .navbar a {
     margin: 0 1rem;
     font-size: 1.8rem;
-    color: #fff;
+    color: var(--white);
+    /* A transicao fica SO no link, e so muda a cor. */
+    transition: color 0.3s ease, border-color 0.3s ease;
 }
 
-.navbar a:hover {
+/* No CSS antigo, o hover aumentava a fonte de 1.8rem para 2rem.
+   Isso fazia os botoes "pularem" e baguncando a linha toda.
+   Aqui a gente muda so a cor e a borda - nada se move. */
+.navbar a:hover,
+.navbar a:focus-visible {
     color: var(--main-color);
     border-bottom: 0.1rem solid var(--main-color);
     padding-bottom: 0.5rem;
-    font-size: 2rem;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 .icons img {
-    margin: 1rem;
     cursor: pointer;
+    /* O icone do carrinho e menor que o da lupa. O CSS antigo
+       forcava 40x40 no hover, o que esticava a imagem e pulava
+       o layout. Agora o tamanho nunca muda. */
+    transition: transform 0.3s ease;
 }
 
 .icons img:hover {
-    width: 40px;
-    height: 40px;
+    transform: scale(1.1);   /* aumenta um pouquinho, sem empurrar nada */
 }
 
-.btn {
-    background: var(--main-color);
-    color: #fff;
-    padding: 1rem 3rem;
-    font-size: 1.7rem;
-    cursor: pointer;
-    margin-top: 1rem;
-    display: inline-block;
-}
-
+/* ---------------------------------------------------------------------
+   5. HOME (a capa)
+   --------------------------------------------------------------------- */
 .home-container {
-    background: url("./assets/e10af51a-928d-441a-aba8-dd41a0c0e1a6.jpeg");
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    background: url("./assets/e10af51a-928d-441a-aba8-dd41a0c0e1a6.jpeg") center / cover no-repeat;
+
+    /* Escurece a foto para o texto branco ficar legivel */
+    position: relative;
+}
+
+.home-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;   /* atalho para top/right/bottom/left: 0 */
+    background: rgba(0, 0, 0, 0.55);
 }
 
 .home-container section {
+    position: relative;   /* coloca o texto ACIMA da camada escura */
     display: flex;
     align-items: center;
     min-height: 100vh;
+
+    /* O cabecalho e fixo e tem 91px de altura. Sem este espaco, o
+       texto da capa encostava nele e ficava cortado embaixo do
+       cabecalho em telas baixas. */
+    padding-top: 9rem;
 }
 
 .content {
     max-width: 60rem;
 }
 
-.content h3 {
-    color: #fff;
+.content h1 {
+    color: var(--white);
     font-size: 6rem;
+    line-height: 1.1;
 }
 
 .content p {
-    color: #fff;
+    color: var(--white);
     font-size: 2rem;
-    font-weight: 100;
-    line-height: 1.8;
-    padding: 1rem 0;
+    font-weight: 300;
+    padding: 1.5rem 0;
+    max-width: 52rem;
+}
+
+.btn {
+    background: var(--main-color);
+    color: var(--bg);
+    padding: 1.2rem 3rem;
+    font-size: 1.7rem;
+    font-weight: 600;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover,
+.btn:focus-visible {
+    background: #e3c39c;
+    transform: translateY(-0.2rem);   /* sobe um pouquinho */
+}
+
+/* ---------------------------------------------------------------------
+   6. TITULOS DAS SECOES
+   --------------------------------------------------------------------- */
+section {
+    padding: 6rem 3rem;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.title {
+    font-size: 4.5rem;
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+/* O "span" fica com a cor dourada, para destacar a segunda palavra */
+.title span {
+    color: var(--main-color);
+}
+
+/* ---------------------------------------------------------------------
+   7. SOBRE
+   --------------------------------------------------------------------- */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.about-texto .destaque {
+    font-size: 2.4rem;
+    color: var(--main-color);
+    margin-bottom: 1.5rem;
+}
+
+.about-texto p {
+    color: var(--text-soft);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.lista {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+}
+
+.lista li {
+    border-left: 0.3rem solid var(--main-color);
+    padding-left: 1.5rem;
+}
+
+.lista strong {
+    display: block;
+    font-size: 1.9rem;
+    color: var(--white);
+}
+
+.lista span {
+    font-size: 1.6rem;
+    color: var(--text-soft);
+}
+
+.about-foto img {
+    width: 100%;
+    /* A foto original e "deitada" (1536x1024). Aqui o quadro e
+       "em pe" (4/5), entao sobra parte da largura e ela e cortada. */
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    /* Mostra o lado direito da imagem, que e diferente do que
+       aparece no fundo da home */
+    object-position: 75% center;
+    border-radius: 1rem;
+    border: var(--border);
+}
+
+/* ---------------------------------------------------------------------
+   8. CARTAO REUTILIZAVEL
+   O mesmo visual de caixa esta no cardapio, nas avaliacoes e no
+   endereco. Em vez de repetir o CSS, criamos o .item uma vez e
+   reaproveitamos. E o que se chama de "classe".
+   --------------------------------------------------------------------- */
+.grade {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.item {
+    background: var(--card);
+    border: var(--border);
+    border-radius: 1rem;
+    padding: 2.5rem;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.item:hover {
+    border-color: var(--main-color);
+    transform: translateY(-0.3rem);
+}
+
+.item h3 {
+    font-size: 2.2rem;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+}
+
+.item-desc {
+    font-size: 1.6rem;
+    color: var(--text-soft);
+}
+
+.item a {
+    color: var(--main-color);
+    border-bottom: 0.1rem solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.item a:hover {
+    border-color: var(--main-color);
+}
+
+/* Preco, no topo do cardapio */
+.item-valor {
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: var(--main-color);
+    margin-bottom: 0.5rem;
+}
+
+/* ---------------------------------------------------------------------
+   9. AVALIACOES
+   --------------------------------------------------------------------- */
+.estrelas {
+    color: var(--main-color);
+    font-size: 2rem;
+    letter-spacing: 0.2rem;
+    margin-bottom: 1.2rem;
+}
+
+.item-autor {
+    font-size: 1.6rem;
+    color: var(--white);
+    font-weight: 600;
+    margin-top: 1.5rem;
+}
+
+.item-autor span {
+    color: var(--text-soft);
+    font-weight: 400;
+}
+
+/* ---------------------------------------------------------------------
+   10. ENDERECO
+   --------------------------------------------------------------------- */
+.address-grid {
+    /* Mesmo desenho do .grade: 3 colunas, virando 1 no celular */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+/* ---------------------------------------------------------------------
+   11. RODAPE
+   --------------------------------------------------------------------- */
+.footer {
+    text-align: center;
+    padding: 3rem;
+    border-top: var(--border);
+    margin-top: 4rem;
+    color: var(--text-soft);
+    font-size: 1.6rem;
+}
+
+/* ---------------------------------------------------------------------
+   11. CELULAR E TABLET
+   O site foi montado pensando no computador. Aqui a gente ajusta
+   o layout para telas menores. A regra vale para telas de ate
+   900px de largura.
+   --------------------------------------------------------------------- */
+@media (max-width: 900px) {
+
+    .content h1 {
+        font-size: 4rem;
+    }
+
+    .content p {
+        font-size: 1.8rem;
+    }
+
+    .title {
+        font-size: 3.5rem;
+    }
+
+    /* Cabecalho vira uma coluna: logo em cima, menu embaixo */
+    .header section {
+        flex-direction: column;
+        gap: 1rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .logo img {
+        height: 4.5rem;
+    }
+
+    .navbar {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .navbar a {
+        font-size: 1.6rem;
+        margin: 0 0.8rem;
+    }
+
+    .icons {
+        display: none;   /* no celular, esconde a lupa e o carrinho */
+    }
+
+    /* Duas colunas em vez de tres */
+    .grade,
+    .address-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* A imagem vai para baixo do texto */
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .about-foto img {
+        aspect-ratio: 16 / 9;
+        object-position: center;
+    }
+}
+
+/* Telas bem pequenas (celular antigo) */
+@media (max-width: 560px) {
+
+    section {
+        padding: 4rem 2rem;
+    }
+
+    .content h1 {
+        font-size: 3.2rem;
+    }
+
+    .title {
+        font-size: 2.8rem;
+    }
+
+    .grade,
+    .address-grid {
+        grid-template-columns: 1fr;   /* uma coluna so */
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Quem preferiu menos movimento nao ve animacoes */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
 }
